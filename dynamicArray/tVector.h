@@ -5,13 +5,13 @@ class tVector
 {
 	const static size_t GROWTH_FACTOR = 2;
 
-	T *arr;								// pointer to array
-	size_t arrSize;						// current num of elements
-	size_t arrCapacity;					// capacity of the array
+	T *arr;								
+	size_t arrSize;						
+	size_t arrCapacity;					
 
 public:
-	tVector();							// initializes the vector's defaults
-	~tVector();							// destroys the array
+	tVector();							
+	~tVector();							
 
 	void push_back(const T &value);
 
@@ -81,7 +81,7 @@ typename tVector<T>::iterator tVector<T>::begin()
 template <typename T>
 typename tVector<T>::iterator tVector<T>::end()
 {
-    return iterator(this, arrSize-1);
+    return iterator(this, arrSize);
 }
 
 template <typename T>
@@ -101,26 +101,21 @@ tVector<T>::~tVector()
 template <typename T>
 void tVector<T>::push_back(const T &value)
 {
-	// make sure there's enough space
 	if (arrSize >= arrCapacity)
 	{
-		// if not, then allocate more space
-		T *newData = new T[arrCapacity * GROWTH_FACTOR];
+		arrCapacity *= GROWTH_FACTOR;
+		T *newData = new T[arrCapacity];
 
-		// copy over the elements
 		for (size_t i = 0; i < arrSize; ++i)
 		{
 			newData[i] = arr[i];
 		}
 
-		// delete the existing array
 		delete[] arr;
 
-		// overwrite it with the new array
 		arr = newData;
 	}
 
-	// actually add the value to the vector
 	arr[arrSize] = value;
 	++arrSize;
 }
