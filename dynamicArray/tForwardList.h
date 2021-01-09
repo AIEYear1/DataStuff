@@ -29,7 +29,7 @@ public:
 
 	tForwardList &operator=(const tForwardList &rhs);
 
-	class iterator
+	/*class iterator
 	{
 		tForwardList *list;
 		node cur;
@@ -43,57 +43,57 @@ public:
 
 		T &operator++();
 		T operator++(int);
-	};
+	};*/
 
-	iterator begin();
-	iterator end();
+	//iterator begin();
+	//iterator end();
 };
 
-template <typename T>
-tForwardList<T>::iterator::iterator()
-{
-	vector = nullptr;
-	cur = 0;
-}
-template <typename T>
-tForwardList<T>::iterator::iterator(node *startNode)
-{
-	vector = startNode;
-}
-
-template <typename T>
-bool tForwardList<T>::iterator::operator ==(iterator rhs)
-{
-	return (vector == rhs.vector) && (cur == rhs.cur);
-}
-template <typename T>
-bool tForwardList<T>::iterator::operator !=(iterator rhs)
-{
-	return (vector != rhs.vector) || (cur != rhs.cur);
-}
-
-template <typename T>
-T &tForwardList<T>::iterator::operator++()
-{
-	return &vector[++cur];
-}
-template <typename T>
-T tForwardList<T>::iterator::operator++(int)
-{
-	return &vector[cur++];
-}
-
-
-template <typename T>
-typename tForwardList<T>::iterator tForwardList<T>::begin()
-{
-	return iterator(this, 0);
-}
-template <typename T>
-typename tForwardList<T>::iterator tForwardList<T>::end()
-{
-	return iterator(this, arrSize);
-}
+//template <typename T>
+//tForwardList<T>::iterator::iterator()
+//{
+//	vector = nullptr;
+//	cur = nullptr;
+//}
+//template <typename T>
+//tForwardList<T>::iterator::iterator(node *startNode)
+//{
+//	vector = startNode;
+//}
+//
+//template <typename T>
+//bool tForwardList<T>::iterator::operator ==(iterator rhs)
+//{
+//	return (vector == rhs.vector) && (cur == rhs.cur);
+//}
+//template <typename T>
+//bool tForwardList<T>::iterator::operator !=(iterator rhs)
+//{
+//	return (vector != rhs.vector) || (cur != rhs.cur);
+//}
+//
+//template <typename T>
+//T &tForwardList<T>::iterator::operator++()
+//{
+//	return &vector[++cur];
+//}
+//template <typename T>
+//T tForwardList<T>::iterator::operator++(int)
+//{
+//	return &vector[cur++];
+//}
+//
+//
+//template <typename T>
+//typename tForwardList<T>::iterator tForwardList<T>::begin()
+//{
+//	return iterator(this, 0);
+//}
+//template <typename T>
+//typename tForwardList<T>::iterator tForwardList<T>::end()
+//{
+//	return iterator(this, arrSize);
+//}
 
 template <typename T>
 tForwardList<T>::tForwardList()
@@ -172,16 +172,16 @@ const T &tForwardList<T>::front() const
 template <typename T>
 void tForwardList<T>::remove(const T &val)
 {
-	node *tmpNode = head;
+	node **tmpNode = &head;
 
-	while (tmpNode->next->data != val)
+	while ((*tmpNode)->next->data != val)
 	{
-		tmpNode = tmpNode->next;
+		tmpNode = &((*tmpNode)->next);
 	}
 
-	node *tmpNode2 = tmpNode->next->next;
-	delete tmpNode->next;
-	tmpNode->next = tmpNode2;
+	node *tmpNode2 = (*tmpNode)->next->next;
+	delete (*tmpNode)->next;
+	(*tmpNode)->next = tmpNode2;
 }
 template <typename T>
 void tForwardList<T>::clear()
@@ -190,25 +190,16 @@ void tForwardList<T>::clear()
 
 	while (tmpNode != nullptr)
 	{
-		(*tmpNode).data = nullptr;
-		tmpNode = tmpNode.next;
+		node *subNode = tmpNode->next;
+		delete tmpNode;
+		tmpNode = subNode;
 	}
+
+	head = nullptr;
 }
 
 template <typename T>
 bool tForwardList<T>::empty() const
 {
-	node *tmpNode = head;
-
-	while (tmpNode != nullptr)
-	{
-		if ((*tmpNode).data != nullptr)
-		{
-			return false;
-		}
-
-		tmpNode = tmpNode.next;
-	}
-
-	return true;
+	return head == nullptr;
 }
