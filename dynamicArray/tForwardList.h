@@ -29,71 +29,82 @@ public:
 
 	tForwardList &operator=(const tForwardList &rhs);
 
-	/*class iterator
+	class iterator
 	{
 		tForwardList *list;
-		node cur;
+		node *cur;
 
 	public:
 		iterator();
-		iterator(node *startNode);
+		iterator(tForwardList *List, node *startNode);
 
 		bool operator ==(iterator rhs);
 		bool operator !=(iterator rhs);
 
 		T &operator++();
 		T operator++(int);
-	};*/
+	};
 
-	//iterator begin();
-	//iterator end();
+	iterator begin();
+	iterator end();
 };
 
-//template <typename T>
-//tForwardList<T>::iterator::iterator()
-//{
-//	vector = nullptr;
-//	cur = nullptr;
-//}
-//template <typename T>
-//tForwardList<T>::iterator::iterator(node *startNode)
-//{
-//	vector = startNode;
-//}
-//
-//template <typename T>
-//bool tForwardList<T>::iterator::operator ==(iterator rhs)
-//{
-//	return (vector == rhs.vector) && (cur == rhs.cur);
-//}
-//template <typename T>
-//bool tForwardList<T>::iterator::operator !=(iterator rhs)
-//{
-//	return (vector != rhs.vector) || (cur != rhs.cur);
-//}
-//
-//template <typename T>
-//T &tForwardList<T>::iterator::operator++()
-//{
-//	return &vector[++cur];
-//}
-//template <typename T>
-//T tForwardList<T>::iterator::operator++(int)
-//{
-//	return &vector[cur++];
-//}
-//
-//
-//template <typename T>
-//typename tForwardList<T>::iterator tForwardList<T>::begin()
-//{
-//	return iterator(this, 0);
-//}
-//template <typename T>
-//typename tForwardList<T>::iterator tForwardList<T>::end()
-//{
-//	return iterator(this, arrSize);
-//}
+template <typename T>
+tForwardList<T>::iterator::iterator()
+{
+	list = nullptr;
+	cur = nullptr;
+}
+template <typename T>
+tForwardList<T>::iterator::iterator(tForwardList *List, node *startNode)
+{
+	list = List;
+	cur = startNode;
+}
+
+template <typename T>
+bool tForwardList<T>::iterator::operator ==(iterator rhs)
+{
+	return (list == rhs.list) && (cur == rhs.cur);
+}
+template <typename T>
+bool tForwardList<T>::iterator::operator !=(iterator rhs)
+{
+	return (list != rhs.list) || (cur != rhs.cur);
+}
+
+template <typename T>
+T &tForwardList<T>::iterator::operator++()
+{
+	cur = cur->next;
+	return &(cur->data);
+}
+template <typename T>
+T tForwardList<T>::iterator::operator++(int)
+{
+	node curNode = *cur;
+	cur = cur->next;
+	return curNode->data;
+}
+
+
+template <typename T>
+typename tForwardList<T>::iterator tForwardList<T>::begin()
+{
+	return iterator(this, head);
+}
+template <typename T>
+typename tForwardList<T>::iterator tForwardList<T>::end()
+{
+	node *tmpNode = head;
+
+	while (tmpNode->next != nullptr)
+	{
+		tmpNode = tmpNode->next;
+	}
+
+	return iterator(this, tmpNode);
+}
 
 template <typename T>
 tForwardList<T>::tForwardList()
