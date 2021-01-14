@@ -142,10 +142,12 @@
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="start.cpp" />
+    <ClCompile Include="tList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="start.h" />
+    <ClInclude Include="tList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,12 +24,18 @@
     <ClCompile Include="start.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamestate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

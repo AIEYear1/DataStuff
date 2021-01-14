@@ -98,7 +98,7 @@ typename tForwardList<T>::iterator tForwardList<T>::end()
 {
 	node *tmpNode = head;
 
-	while (tmpNode->next != nullptr)
+	while (tmpNode != nullptr)
 	{
 		tmpNode = tmpNode->next;
 	}
