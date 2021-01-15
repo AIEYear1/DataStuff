@@ -2,10 +2,11 @@
 
 #include "gamestate.h"
 #include "start.h"
+#include "Utils.h"
 
 int main()
 {
-	InitWindow(800, 450, "Test");
+	InitWindow(SCREENSPACE.width, SCREENSPACE.height, "Test");
 	SetTargetFPS(60);
 
 	gamestate *states[]

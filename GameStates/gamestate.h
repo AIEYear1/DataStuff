@@ -1,7 +1,11 @@
 #pragma once
+#include "raylib.h"
+#include "Utils.h"
 class gamestate
 {
 protected:
+	virtual Color background() const;
+
 	virtual void onInit();
 	virtual void onTick();
 	virtual void onDraw();
@@ -15,4 +19,3 @@ public:
 
 	virtual bool nextState(int &nextState);
 };
-

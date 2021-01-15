@@ -1,5 +1,9 @@
 #include "gamestate.h"
-#include "raylib.h"
+
+Color gamestate::background() const
+{
+	return RAYWHITE;
+}
 
 void gamestate::init()
 {
@@ -13,7 +17,7 @@ void gamestate::draw()
 {
 	BeginDrawing();
 
-	ClearBackground(RAYWHITE);
+	ClearBackground(background());
 
 	onDraw();
 

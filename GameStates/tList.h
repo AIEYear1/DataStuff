@@ -191,7 +191,11 @@ void tList<T>::pop_front()
 	node *newHead = head->next;
 	delete head;
 	head = newHead;
-	head->prev = nullptr;
+
+	if (head != nullptr)
+	{
+		head->prev = nullptr;
+	}
 }
 template <typename T>
 void tList<T>::push_back(const T &val)
