@@ -139,15 +139,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxObject.cpp" />
+    <ClCompile Include="CircleObject.cpp" />
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="tList.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxObject.h" />
+    <ClInclude Include="CircleObject.h" />
     <ClInclude Include="gamestate.h" />
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="tList.h" />
     <ClInclude Include="Utils.h" />
