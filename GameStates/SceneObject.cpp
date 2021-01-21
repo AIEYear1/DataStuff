@@ -17,6 +17,10 @@ SceneObject::SceneObject()
 	position = Vec2();
 	curCenter = nullptr;
 }
+SceneObject::SceneObject(Vec2 *curcenter)
+{
+	curCenter = curcenter;
+}
 SceneObject::SceneObject(Vec2 pos, Vec2 *curcenter)
 {
 	position = pos;

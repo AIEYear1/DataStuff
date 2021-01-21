@@ -10,15 +10,16 @@ Color start::background() const
 void start::onInit()
 {
 	position = CENTER;
-	box = Rectangle{ 1000, 100, 300, 300 };
+	box = Rectangle{ 0, CENTER.y + SCREENSPACE.height *.25f, SCREENSPACE.width, 100 };
 }
 
+Vec2 vel = Vec2();
 void start::onTick()
 {
-	Vec2 vel = Vec2(GetAxis("Horizontal"), GetAxis("Vertical"));
-	vel.ClampMagnitude(1);
+	//vel.y += 1500 * GetFrameTime();
+	vel.y = GetAxis("Vertical") * 500;
 
-	position += vel * 300 * GetFrameTime();
+	position += vel * GetFrameTime();
 
 	if (CheckCollisionCircleRec(position, 20, box))
 	{

@@ -11,6 +11,7 @@ public:
 	Vec2 position;
 
 	SceneObject();
+	SceneObject(Vec2 *curcenter);
 	SceneObject(Vec2 pos, Vec2 *curcenter);
 
 	void init();

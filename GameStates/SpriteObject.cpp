@@ -8,6 +8,10 @@ SpriteObject::SpriteObject() : SceneObject()
 {
 	color = WHITE;
 }
+SpriteObject::SpriteObject(Color objColor, Vec2 *curcenter) : SceneObject(curcenter)
+{
+	color = objColor;
+}
 SpriteObject::SpriteObject(Color objColor, Vec2 pos, Vec2 *curcenter) : SceneObject(pos, curcenter)
 {
 	color = objColor;

@@ -1,4 +1,4 @@
-#include "CircleObject.h"
+#include "SpriteObject.h"
 
 void CircleObject::onDraw()
 {

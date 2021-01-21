@@ -51,6 +51,12 @@
     <ClCompile Include="BoxObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="startupstate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamestate.h">
@@ -74,16 +80,16 @@
     <ClInclude Include="SpriteObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CircleObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoxObject.h">
+    <ClInclude Include="tVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="startupstate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

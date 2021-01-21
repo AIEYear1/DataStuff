@@ -3,18 +3,18 @@
 
 int main()
 {
-	tForwardList<int> numbers;
+	tVector<int> numbers;
 
-	numbers.push_front(5);
-	numbers.push_front(6);
-	numbers.push_front(7);
-	numbers.push_front(8);
+	numbers.push_back(5);
+	numbers.push_back(6);
+	numbers.push_back(7);
+	numbers.push_back(8);
 
-	numbers.remove(6);
+	numbers.at(6);
 
-	int val = numbers.front();
+	int val = numbers.at(0);
 
-	tForwardList<int> numbers2;
+	tVector<int> numbers2;
 	numbers2 = numbers;
 
 	return 0;

@@ -2,6 +2,8 @@
 
 #include "gamestate.h"
 #include "start.h"
+#include "MainGame.h"
+#include "startupstate.h"
 #include "Utils.h"
 
 int main()
@@ -11,7 +13,8 @@ int main()
 
 	gamestate *states[]
 	{
-		new start()
+		new startupstate(),
+		new MainGame()
 	};
 
 	int currentState = 0;

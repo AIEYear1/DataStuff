@@ -1,4 +1,4 @@
-#include "BoxObject.h"
+#include "SpriteObject.h"
 
 void BoxObject::onDraw()
 {
@@ -10,7 +10,14 @@ BoxObject::BoxObject() : SpriteObject()
 	rec = Rectangle();
 }
 
-BoxObject::BoxObject(Rectangle &objRec, Color objColor, Vec2 pos, Vec2 *curcenter) : SpriteObject(objColor, pos, curcenter)
+BoxObject::BoxObject(Rectangle &objRec, Color objColor, Vec2 *curcenter) : SpriteObject(objColor, curcenter)
 {
 	rec = objRec;
+	position = Vec2(objRec.x, objRec.y);
+}
+
+void BoxObject::onUpdate()
+{
+	rec.x = position.x;
+	rec.y = position.y;
 }
