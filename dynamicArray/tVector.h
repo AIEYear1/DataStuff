@@ -3,15 +3,18 @@
 template <typename T>
 class tVector
 {
-	const static size_t GROWTH_FACTOR = 2;
+	const size_t GROWTH_FACTOR = 2;
 
 	T *arr;								
 	size_t arrSize;						
 	size_t arrCapacity;					
 
 public:
-	tVector();							
-	~tVector();							
+	tVector();
+
+    tVector(const tVector &other);
+    tVector &operator=(const tVector &rhs);
+    ~tVector();
 
 	void push_back(const T &value);
 
@@ -93,6 +96,31 @@ tVector<T>::tVector()
 }
 
 template <typename T>
+tVector<T>::tVector(const tVector &other)
+{
+	arr = new T[other.arrCapacity];
+	arrCapacity = other.arrCapacity;
+	arrSize = other.arrSize;
+
+	for (int x = 0; x < arrSize; ++x)
+	{
+		arr[x] = other.arr[x];
+	}
+}
+template <typename T>
+tVector<T> &tVector<T>::operator=(const tVector &rhs)
+{
+	arr = new T[rhs.arrCapacity];
+	arrCapacity = rhs.arrCapacity;
+	arrSize = rhs.arrSize;
+
+	for (int x = 0; x < arrSize; ++x)
+	{
+		arr[x] = rhs.arr[x];
+	}
+	return *this;
+}
+template <typename T>
 tVector<T>::~tVector()
 {
 	delete[] arr;
@@ -116,8 +144,7 @@ void tVector<T>::push_back(const T &value)
 		arr = newData;
 	}
 
-	arr[arrSize] = value;
-	++arrSize;
+	arr[arrSize++] = value;
 }
 
 template <typename T>

@@ -13,16 +13,3 @@ float Max(float val, float max);
 float Clamp(float val, float min, float max);
 
 float GetAxis(const char *axis);
-
-bool onSegment(Vec2 p, Vec2 q, Vec2 r);
-
-// To find orientation of ordered triplet (p, q, r). 
-// The function returns following values 
-// 0 --> p, q and r are colinear 
-// 1 --> Clockwise 
-// 2 --> Counterclockwise 
-int orientation(Vec2 p, Vec2 q, Vec2 r);
-
-// The main function that returns true if line segment 'p1q1' 
-// and 'p2q2' intersect. 
-bool doIntersect(Vec2 p1, Vec2 q1, Vec2 p2, Vec2 q2);

@@ -3,7 +3,7 @@
 template <typename T>
 class tVector
 {
-    const static size_t GROWTH_FACTOR = 2;
+    const size_t GROWTH_FACTOR = 2;
 
     T *arr;
     size_t arrSize;

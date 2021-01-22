@@ -38,5 +38,5 @@ public:
     Rectangle rec;
 
     BoxObject();
-    BoxObject(Rectangle &objRec, Color objColor, Vec2 *curcenter);
+    BoxObject(Rectangle objRec, Color objColor, Vec2 *curcenter);
 };

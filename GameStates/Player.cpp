@@ -25,6 +25,12 @@ void Player::onUpdate()
 {
 	move();
 
+	if (position.y > spawnPoint.position.y + 2000)
+	{
+		position = spawnPoint.position;
+		vel = Vec2();
+	}
+
 	grounded = false;
 	for (int x = 0; x < platforms->size(); ++x)
 	{
@@ -35,6 +41,8 @@ void Player::onUpdate()
 	}
 
 	*curCenter = position;
+
+	spawnPoint.update();
 }
 
 void Player::move()
@@ -48,10 +56,6 @@ void Player::move()
 		if (IsKeyPressed(KEY_SPACE))
 		{
 			vel.y = -jForce;
-		}
-		else
-		{
-			vel.y = 0;
 		}
 	}
 	else
@@ -77,25 +81,29 @@ void Player::push(BoxObject &colliding)
 	if (uAngle < lowerExtent)
 	{
 		//// up
-		position.y -= Abs((boxCenter.y - position.y) - ((colliding.rec.height / 2) + radius));
-
+		position.y = colliding.position.y - radius;
+		//position.y -= Abs((boxCenter.y - position.y) - ((colliding.rec.height / 2) + radius));
 		grounded = true;
 		vel.y = 0;
 	}
 	else if (uAngle > upperExtent)
 	{
 		//// down
-		position.y += Abs((position.y - boxCenter.y) - ((colliding.rec.height / 2) + radius));
+		position.y = colliding.position.y + colliding.rec.height + radius;
+		//position.y += Abs((position.y - boxCenter.y) - ((colliding.rec.height / 2) + radius));
+		vel.y = 0;
 	}
 	else if (angle > 0)
 	{
 		//// left
-		position.x -= Abs((boxCenter.x - position.x) - ((colliding.rec.width / 2) + radius));
+		position.x = colliding.position.x - radius;
+		//position.x -= Abs((boxCenter.x - position.x) - ((colliding.rec.width / 2) + radius));
 	}
 	else if (angle < 0)
 	{
 		//// right
-		position.x += Abs((position.x - boxCenter.x) - ((colliding.rec.width / 2) + radius));
+		position.x = colliding.position.x + colliding.rec.width + radius;
+		//position.x += Abs((position.x - boxCenter.x) - ((colliding.rec.width / 2) + radius));
 	}
 }
 

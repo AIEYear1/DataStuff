@@ -18,7 +18,10 @@ class Player :
     bool isGrounded();
 
     void push(BoxObject &colliding);
+
 public:
+    SceneObject spawnPoint;
+
     Player();
     Player(float speed, float jumpForce, float gravity, std::vector<BoxObject> &pltfrms, float objRadius, Color objColor, Vec2 pos, Vec2 *curcenter);
 };

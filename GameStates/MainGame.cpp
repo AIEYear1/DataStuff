@@ -7,8 +7,9 @@ Color MainGame::background() const
 
 void MainGame::generatePlatforms()
 {
-	Rectangle rec = Rectangle{ 0, CENTER.y + 120, SCREENSPACE.width, SCREENSPACE.height - (CENTER.y + 120) };
-	platforms.push_back(BoxObject(rec, LIME, &curCenter));
+	platforms.push_back(BoxObject(Rectangle{ -25, 70, 25, 830 }, LIME, &curCenter));
+	platforms.push_back(BoxObject(Rectangle{ 0, 570, 1600, 330 }, LIME, &curCenter));
+	platforms.push_back(BoxObject(Rectangle{ 1100, 220, 500, 350 }, LIME, &curCenter));
 }
 
 void MainGame::onInit()
@@ -17,7 +18,8 @@ void MainGame::onInit()
 	platforms = std::vector<BoxObject>();
 	generatePlatforms();
 
-	plyr = Player(600, 1000, 1500, platforms, 30, ORANGE, curCenter, &curCenter);
+	plyr = Player(800, 1200, 2000, platforms, 30, ORANGE, curCenter, &curCenter);
+	plyr.spawnPoint = SceneObject(CENTER, &curCenter);
 }
 void MainGame::onTick()
 {
