@@ -1,6 +1,6 @@
 #pragma once
 #include "SpriteObject.h"
-#include <vector>
+#include "platforms.h"
 class Player :
     public CircleObject
 {
@@ -10,12 +10,15 @@ class Player :
     float jForce;
     float grav;
     bool grounded;
-    std::vector<BoxObject> *platforms;
+    platforms *plats;
+
+    //TODO: bool for double jump
+    //TODO: int for wall ride; 0 for neither, 1 for left side, 2 for right side
+    //TODO: int for wall jump lock; 0 for neither, 1 for left side, 2 for right side
 
     virtual void onUpdate() override;
 
     void move();
-    bool isGrounded();
 
     void push(BoxObject &colliding);
 
@@ -23,6 +26,6 @@ public:
     SceneObject spawnPoint;
 
     Player();
-    Player(float speed, float jumpForce, float gravity, std::vector<BoxObject> &pltfrms, float objRadius, Color objColor, Vec2 pos, Vec2 *curcenter);
+    Player(float speed, float jumpForce, float gravity, platforms &pltfrms, float objRadius, Color objColor, Vec2 pos);
 };
 

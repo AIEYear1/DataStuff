@@ -10,7 +10,7 @@ CircleObject::CircleObject() : SpriteObject()
 	radius = 0;
 }
 
-CircleObject::CircleObject(float objRadius, Color objColor, Vec2 pos, Vec2 *curcenter) : SpriteObject(objColor, pos, curcenter)
+CircleObject::CircleObject(float objRadius, Color objColor, Vec2 pos) : SpriteObject(objColor, pos)
 {
 	radius = objRadius;
 }

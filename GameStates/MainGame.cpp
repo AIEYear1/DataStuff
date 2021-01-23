@@ -5,39 +5,49 @@ Color MainGame::background() const
 	return Color{ 13, 2, 33, 255 };
 }
 
-void MainGame::generatePlatforms()
-{
-	platforms.push_back(BoxObject(Rectangle{ -25, 70, 25, 830 }, LIME, &curCenter));
-	platforms.push_back(BoxObject(Rectangle{ 0, 570, 1600, 330 }, LIME, &curCenter));
-	platforms.push_back(BoxObject(Rectangle{ 1100, 220, 500, 350 }, LIME, &curCenter));
-}
-
 void MainGame::onInit()
 {
-	curCenter = CENTER;
-	platforms = std::vector<BoxObject>();
 	generatePlatforms();
 
-	plyr = Player(800, 1200, 2000, platforms, 30, ORANGE, curCenter, &curCenter);
-	plyr.spawnPoint = SceneObject(CENTER, &curCenter);
+	plyr = Player(800, 1000, 2500, plats, 30, ORANGE, CENTER);
+	plyr.spawnPoint = SceneObject(CENTER);
+
+	otherObjs[4] =
+	{
+		SpriteObject(MAROON, Vec2()),
+	};
 }
 void MainGame::onTick()
 {
 	plyr.update();
 
-	for (int x = 0; x < platforms.size(); ++x)
+	for (int x = 0; x < plats.platformCount; ++x)
 	{
-		platforms[x].update();
+		plats[x].update();
 	}
 
-	curCenter = CENTER;
+	cameracenter::instance().setPos(CENTER);
 }
 void MainGame::onDraw()
 {
-	for (int x = 0; x < platforms.size(); ++x)
+	for (int x = 0; x < plats.platformCount; ++x)
 	{
-		platforms[x].draw();
+		plats[x].draw();
 	}
 	
 	plyr.draw();
+}
+
+void MainGame::generatePlatforms()
+{
+	BoxObject tmp[]
+	{
+		BoxObject(Rectangle{ -25, 50, 25, 800 },   LIME),
+		BoxObject(Rectangle{ 0, 550, 1100, 300 },  LIME),
+		BoxObject(Rectangle{ 1100, 350, 500, 500 }, LIME),
+		BoxObject(Rectangle{ 2200, 350, 650, 500 }, LIME),
+		BoxObject(Rectangle{ 3350, 100, 650, 100 }, LIME),
+		BoxObject(Rectangle{ 3600, 400, 650, 500 }, LIME),
+	};
+	plats = platforms(tmp, sizeof(tmp) / sizeof(tmp[0]));
 }

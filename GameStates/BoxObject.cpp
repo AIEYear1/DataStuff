@@ -10,7 +10,7 @@ BoxObject::BoxObject() : SpriteObject()
 	rec = Rectangle();
 }
 
-BoxObject::BoxObject(Rectangle objRec, Color objColor, Vec2 *curcenter) : SpriteObject(objColor, curcenter)
+BoxObject::BoxObject(Rectangle objRec, Color objColor) : SpriteObject(objColor)
 {
 	rec = objRec;
 	position = Vec2(objRec.x, objRec.y);

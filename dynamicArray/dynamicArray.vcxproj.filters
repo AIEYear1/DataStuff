@@ -29,7 +29,10 @@
     <ClInclude Include="tList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graph.h">
+    <ClInclude Include="tAdjacencyList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tBinaryTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

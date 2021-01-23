@@ -1,15 +1,15 @@
 #pragma once
 #include "gamestate.h"
 #include "SpriteObject.h"
-#include <vector>
 #include "Player.h"
+#include "platforms.h"
 
 class MainGame :
     public gamestate
 {
-    Vec2 curCenter;
     Player plyr;
-    std::vector<BoxObject> platforms;
+    platforms plats;
+    SceneObject *otherObjs;
 
     void generatePlatforms();
 protected:

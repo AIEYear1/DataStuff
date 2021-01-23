@@ -5,6 +5,8 @@ class startupstate :
 {
     virtual Color background() const override;
 
+    virtual void onDraw() override;
+
     virtual bool nextState(int &nextState) override;
 };
 

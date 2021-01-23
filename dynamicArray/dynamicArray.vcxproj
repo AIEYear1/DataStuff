@@ -147,7 +147,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graph.h" />
+    <ClInclude Include="tAdjacencyList.h" />
+    <ClInclude Include="tBinaryTree.h" />
     <ClInclude Include="tForwardList.h" />
     <ClInclude Include="tList.h" />
     <ClInclude Include="tVector.h" />

@@ -144,11 +144,14 @@
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="platforms.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="startupstate.cpp" />
+    <ClCompile Include="TextObject.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="tList.cpp" />
     <ClCompile Include="tVector.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -157,11 +160,13 @@
   <ItemGroup>
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="platforms.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="startupstate.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="tList.h" />
     <ClInclude Include="tVector.h" />
     <ClInclude Include="Utils.h" />

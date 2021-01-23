@@ -10,8 +10,8 @@ protected:
 
 public:
     SpriteObject();
-    SpriteObject(Color objColor, Vec2 *curcenter);
-    SpriteObject(Color objColor, Vec2 pos, Vec2 *curcenter);
+    SpriteObject(Color objColor);
+    SpriteObject(Color objColor, Vec2 pos);
 
     void draw();
 };
@@ -25,7 +25,7 @@ public:
     float radius;
 
     CircleObject();
-    CircleObject(float objRadius, Color objColor, Vec2 pos, Vec2 *curcenter);
+    CircleObject(float objRadius, Color objColor, Vec2 pos);
 };
 
 class BoxObject :
@@ -38,5 +38,18 @@ public:
     Rectangle rec;
 
     BoxObject();
-    BoxObject(Rectangle objRec, Color objColor, Vec2 *curcenter);
+    BoxObject(Rectangle objRec, Color objColor);
+};
+
+class TextObject :
+    public SpriteObject
+{
+    virtual void onDraw() override;
+
+public:
+    const char *text;
+    size_t size;
+
+    TextObject();
+    TextObject(const char *txt, size_t fontSize, Color objColor, Vec2 pos);
 };

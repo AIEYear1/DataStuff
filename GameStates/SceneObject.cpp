@@ -10,21 +10,15 @@ void SceneObject::update()
 	onUpdate();
 	// Camera follow
 
-	position += (Vec2)CENTER - *curCenter;
+	position += (Vec2)CENTER - cameracenter::instance();
 }
 SceneObject::SceneObject()
 {
 	position = Vec2();
-	curCenter = nullptr;
 }
-SceneObject::SceneObject(Vec2 *curcenter)
-{
-	curCenter = curcenter;
-}
-SceneObject::SceneObject(Vec2 pos, Vec2 *curcenter)
+SceneObject::SceneObject(Vec2 pos)
 {
 	position = pos;
-	curCenter = curcenter;
 }
 
 void SceneObject::onInit() {}

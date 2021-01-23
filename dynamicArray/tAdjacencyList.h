@@ -12,6 +12,8 @@ public:
 		T data;
 
 		vertex();
+
+		vertex &preorder(const T &value);
 	};
 
 	tGraph();
@@ -25,6 +27,8 @@ public:
 	vertex &find(const T &value);
 	void remove(const vertex &vert);
 
+	bool depthFirstSearch(const T &value, vertex &found);
+
 private:
 	std::vector<vertex *> vertices;
 };
@@ -36,22 +40,57 @@ tGraph<T>::vertex::vertex()
 }
 
 template <typename T>
+typename tGraph<T>::vertex &tGraph<T>::vertex::preorder(const T &value)
+{
+	if (value == data)
+	{
+		return *this;
+	}
+
+	vertex *tmpVert = nullptr;
+
+	for (int x = 0; x < adjacentVertices.size(); ++x)
+	{
+		tmpVert = adjacentVertices[x]->preorder(value);
+	}
+
+	return *tmpVert;
+}
+
+template <typename T>
 tGraph<T>::tGraph() {}
 
 template <typename T>
 tGraph<T>::tGraph(const tGraph &other)
 {
+	vertices = std::vector<vertex *>();
 
+	for (int x = 0; x < other.vertices.size(); x++)
+	{
+		vertex tmpVert = (*other.vertices[x]);
+		vertices.push_back(&tmpVert);
+	}
 }
 template <typename T>
 tGraph<T> &tGraph<T>::operator=(const tGraph &other)
 {
+	vertices = std::vector<vertex *>();
 
+	for (int x = 0; x < other.vertices.size(); x++)
+	{
+		vertex tmpVert = (*other.vertices[x]);
+		vertices.push_back(&tmpVert);
+	}
+
+	return *this;
 }
 template <typename T>
 tGraph<T>::~tGraph()
 {
-
+	while (!vertices.empty())
+	{
+		delete vertices.front();
+	}
 }
 
 template <typename T>
@@ -90,4 +129,16 @@ void tGraph<T>::remove(const vertex &vert)
 
 		vertices[x]->adjacentVertices = tmpVector;
 	}
+
+	delete vert;
+}
+
+template <typename T>
+bool tGraph<T>::depthFirstSearch(const T &value, vertex &found)
+{
+	vertex *tmpVert = vertices[0]->preorder(value);
+
+	found = *tmpVert;
+
+	return tmpVert != nullptr;
 }
