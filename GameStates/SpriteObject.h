@@ -19,6 +19,7 @@ public:
 class CircleObject :
     public SpriteObject
 {
+protected:
     virtual void onDraw() override;
 
 public:
@@ -31,8 +32,8 @@ public:
 class BoxObject :
     public SpriteObject
 {
+protected:
     virtual void onDraw() override;
-    virtual void onUpdate() override;
 
 public:
     Rectangle rec;
@@ -44,6 +45,7 @@ public:
 class TextObject :
     public SpriteObject
 {
+protected:
     virtual void onDraw() override;
 
 public:

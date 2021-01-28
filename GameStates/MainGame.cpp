@@ -12,9 +12,9 @@ void MainGame::onInit()
 	plyr = Player(800, 1000, 2500, plats, 30, ORANGE, CENTER);
 	plyr.spawnPoint = SceneObject(CENTER);
 
-	otherObjs[4] =
+	otherObjs = new SpriteObject*[]
 	{
-		SpriteObject(MAROON, Vec2()),
+		new TextObject("  AD to move\nspace to jump", 16, DARKGREEN, Vec2(CENTER.x  - 100, CENTER.y - 200)),
 	};
 }
 void MainGame::onTick()
@@ -26,6 +26,11 @@ void MainGame::onTick()
 		plats[x].update();
 	}
 
+	for (int x = 0; x < 1; ++x)
+	{
+		otherObjs[x]->update();
+	}
+
 	cameracenter::instance().setPos(CENTER);
 }
 void MainGame::onDraw()
@@ -34,8 +39,22 @@ void MainGame::onDraw()
 	{
 		plats[x].draw();
 	}
+
+	for (int x = 0; x < 1; ++x)
+	{
+		otherObjs[x]->draw();
+	}
 	
 	plyr.draw();
+}
+void MainGame::onExit()
+{
+	for (int x = 0; x < 1; ++x)
+	{
+		delete otherObjs[x];
+	}
+
+	delete[] otherObjs;
 }
 
 void MainGame::generatePlatforms()

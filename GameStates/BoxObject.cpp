@@ -2,6 +2,8 @@
 
 void BoxObject::onDraw()
 {
+	rec.x = position.x;
+	rec.y = position.y;
 	DrawRectangleRec(rec, color);
 }
 
@@ -14,10 +16,4 @@ BoxObject::BoxObject(Rectangle objRec, Color objColor) : SpriteObject(objColor)
 {
 	rec = objRec;
 	position = Vec2(objRec.x, objRec.y);
-}
-
-void BoxObject::onUpdate()
-{
-	rec.x = position.x;
-	rec.y = position.y;
 }

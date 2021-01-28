@@ -9,7 +9,7 @@ class MainGame :
 {
     Player plyr;
     platforms plats;
-    SceneObject *otherObjs;
+    SpriteObject **otherObjs;
 
     void generatePlatforms();
 protected:
@@ -18,5 +18,6 @@ protected:
     virtual void onInit() override;
     virtual void onTick() override;
     virtual void onDraw() override;
+    virtual void onExit() override;
 };
 
