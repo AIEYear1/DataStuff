@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxObject.cpp" />
+    <ClCompile Include="cameracenter.cpp" />
     <ClCompile Include="CircleObject.cpp" />
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
@@ -150,14 +151,18 @@
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="startupstate.cpp" />
+    <ClCompile Include="string.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="tList.cpp" />
     <ClCompile Include="tVector.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UITextObject.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cameracenter.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="platforms.h" />
@@ -166,9 +171,12 @@
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="startupstate.h" />
+    <ClInclude Include="string.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="tList.h" />
     <ClInclude Include="tVector.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UITextObject.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>

@@ -10,6 +10,7 @@ class MainGame :
     Player plyr;
     platforms plats;
     SpriteObject **otherObjs;
+    size_t objSize;
 
     void generatePlatforms();
 protected:

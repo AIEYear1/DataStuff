@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <xlocinfo>
 
 float Lerp(float s, float e, float i)
 {
@@ -61,22 +62,35 @@ float GetAxis(const char *axis)
     return 0;
 }
 
-cameracenter::cameracenter()
+string FloatToString(float val)
 {
-    pos = CENTER;
-}
+    char buffer[64];
+    int ret = snprintf(buffer, sizeof buffer, "%f", val);
 
-cameracenter &cameracenter::instance()
-{
-    static cameracenter *instance = new cameracenter();
-    return *instance;
-}
-void cameracenter::setPos(Vec2 position)
-{
-    pos = position;
-}
+    string toReturn = buffer;
 
-cameracenter::operator Vec2()
-{
-    return pos;
+    if (ret < 0)
+    {
+        //return "";
+    }
+    if (ret >= sizeof buffer)
+    {
+        // Result was truncated - resize the buffer and retry.
+    }
+
+    return toReturn;
 }
+//
+//size_t strLength(const char *string)
+//{
+//    size_t toReturn = 0;
+//    char tmpChar = string[0];
+//
+//    while (tmpChar != '\0')
+//    {
+//        ++toReturn;
+//        tmpChar = string[toReturn];
+//    }
+//
+//    return toReturn;
+//}

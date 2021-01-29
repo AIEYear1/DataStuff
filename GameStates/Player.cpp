@@ -21,6 +21,14 @@ Player::Player(float speed, float jumpForce, float gravity, platforms &pltfrms, 
 	plats = &pltfrms;
 }
 
+void Player::onInit()
+{
+	spawnPoint = SceneObject(CENTER);
+	zero = SceneObject();
+
+	showPos = UITextObject(position.ToString(), 50, Vec2(), SKYBLUE);
+}
+
 void Player::onUpdate()
 {
 	move();
@@ -42,9 +50,19 @@ void Player::onUpdate()
 		}
 	}
 
+	showPos.str = (position - zero.position).ToString();
+
 	cameracenter::instance().setPos(position);
 
 	spawnPoint.update();
+	zero.update();
+}
+
+void Player::onDraw()
+{
+	showPos.draw();
+
+	DrawCircleV(position, radius, color);
 }
 
 void Player::move()

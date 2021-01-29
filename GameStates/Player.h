@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteObject.h"
 #include "platforms.h"
+#include "UITextObject.h"
 class Player :
     public CircleObject
 {
@@ -16,7 +17,10 @@ class Player :
     //TODO: int for wall ride; 0 for neither, 1 for left side, 2 for right side
     //TODO: int for wall jump lock; 0 for neither, 1 for left side, 2 for right side
 
+    UITextObject showPos;
+    virtual void onInit() override;
     virtual void onUpdate() override;
+    virtual void onDraw() override;
 
     void move();
 
@@ -24,6 +28,7 @@ class Player :
 
 public:
     SceneObject spawnPoint;
+    SceneObject zero;
 
     Player();
     Player(float speed, float jumpForce, float gravity, platforms &pltfrms, float objRadius, Color objColor, Vec2 pos);

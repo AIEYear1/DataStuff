@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "string.h"
 
 struct Vec2
 {
@@ -25,6 +26,8 @@ struct Vec2
 	/// </summary>
 	float AngleBetween(Vec2 vector);
 	float SignedAngle(Vec2 vector);
+
+	string ToString();
 
 	operator Vector2();
 	Vec2 operator* (float rhs);

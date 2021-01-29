@@ -1,5 +1,6 @@
 #include "Vec2.h"
 #include <iostream>
+#include "Utils.h"
 
 Vec2::Vec2()
 {
@@ -72,6 +73,40 @@ float Vec2::AngleBetween(Vec2 vector)
 float Vec2::SignedAngle(Vec2 vector)
 {
 	return AngleBetween(vector) * ((GetPerpendicular().AngleBetween(vector) > 90) ? -1 : 1);
+}
+
+string Vec2::ToString()
+{
+ 	string toReturn = string();
+	string xString = FloatToString(x);
+	string yString = FloatToString(y);
+
+	int trimCut = 0;
+	for (int x = 0; x < xString.size; ++x)
+	{
+		if (xString[x] == '.')
+		{
+			trimCut = x + 3;
+			break;
+		}
+	}
+	xString.trimEnd((trimCut < xString.size) ? xString.size - trimCut : xString.size);
+
+	for (int x = 0; x < yString.size; ++x)
+	{
+		if (yString[x] == '.')
+		{
+			trimCut = x + 3;
+			break;
+		}
+	}
+	yString.trimEnd((trimCut < yString.size) ? yString.size - trimCut : yString.size);
+
+	toReturn = xString;
+	toReturn.append(", ");
+	toReturn.append(yString);
+
+	return toReturn;
 }
 
 Vec2::operator Vector2()
