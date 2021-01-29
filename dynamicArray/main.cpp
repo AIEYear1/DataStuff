@@ -1,6 +1,7 @@
 #include "tVector.h"
 #include "tForwardList.h"
 #include "tList.h"
+#include "tBinaryTree.h"
 #include <cstdint>
 
 template <typename T>
@@ -8,19 +9,20 @@ uint32_t hash(const T &val);
 
 int main()
 {
-	tVector<int> numbers;
+	tBinaryTree<int> numbers;
 
-	numbers.push_back(5);
-	numbers.push_back(6);
-	numbers.push_back(7);
-	numbers.push_back(8);
+	numbers.insert(5);
+	numbers.insert(6);
+	numbers.insert(7);
+	numbers.insert(8);
 
-	numbers.at(6);
+	tBinaryTree<int>::node deets;
 
-	int val = numbers.at(0);
+	bool val = numbers.search(6, deets);
 
-	tVector<int> numbers2;
+	tBinaryTree<int> numbers2;
 	numbers2 = numbers;
+	tBinaryTree<int> numbers3 = numbers2;
 
 	return 0;
 }
@@ -30,11 +32,11 @@ uint32_t hash<uint32_t>(const uint32_t &val)
 {
 	return val * 2654435761;
 }
-template<>
-uint32_t hash<size_t>(const size_t &val)
-{
-	return hash((uint32_t)val);
-}
+//template<>
+//uint32_t hash<size_t>(const size_t &val)
+//{
+//	return hash((uint32_t)val);
+//}
 template<>
 uint32_t hash<int>(const int &val)
 {
