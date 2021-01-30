@@ -63,15 +63,17 @@ void MainGame::generatePlatforms()
 {
 	BoxObject tmp[]
 	{
-		BoxObject(Rectangle{ -25, 50, 25, 800 },   LIME),
-		BoxObject(Rectangle{ 0, 550, 1100, 300 },  LIME),
-		BoxObject(Rectangle{ 1100, 350, 500, 500 }, LIME),
-		BoxObject(Rectangle{ 2200, 350, 750, 500 }, LIME),
-		BoxObject(Rectangle{ 3350, 100, 650, 100 }, LIME),
-		BoxObject(Rectangle{ 3600, 400, 650, 500 }, LIME),
-		BoxObject(Rectangle{ 4250, 300, 200, 600 }, LIME),
-		BoxObject(Rectangle{ 4000, 150, 100, 50 }, LIME),
-		BoxObject(Rectangle{ 4450, -500, 100, 1400 }, LIME),
+		BoxObject(Rectangle{ -25, 50, 25, 800 },   LIME), // back wall
+		BoxObject(Rectangle{ 0, 550, 1100, 300 },  LIME), // start platform
+		BoxObject(Rectangle{ 1100, 350, 500, 500 }, LIME), // first platform
+		BoxObject(Rectangle{ 2200, 350, 650, 500 }, LIME), // second platform
+		BoxObject(Rectangle{ 3450, 100, 550, 100 }, LIME), // ledge
+		BoxObject(Rectangle{ 3550, 400, 700, 500 }, LIME), // landing platform
+		BoxObject(Rectangle{ 4250, 300, 200, 600 }, LIME), // step stool
+		BoxObject(Rectangle{ 4000, 150, 100, 50 }, LIME), // ledge lip
+		BoxObject(Rectangle{ 4450, -430, 100, 1330 }, LIME), // right wall
+		BoxObject(Rectangle{ 3350, -1100, 100, 1300 }, LIME), // wall jump
+		BoxObject(Rectangle{ 3650, -225, 800, 100 }, LIME), // wall jump platform
 	};
 	plats = platforms(tmp, sizeof(tmp) / sizeof(tmp[0]));
 }

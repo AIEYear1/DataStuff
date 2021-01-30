@@ -9,6 +9,15 @@ Player::Player()
 	grav = 400;
 	grounded = false;
 	plats = nullptr;
+
+	wallRide = 0;
+	wallJumpLock = 0;
+
+	dbJump = false;
+
+	dashTimer = Timer(.1f);
+	dashState = false;
+	dashIsRight = false;
 }
 
 Player::Player(float speed, float jumpForce, float gravity, platforms &pltfrms, float objRadius, Color objColor, Vec2 pos) : CircleObject(objRadius, objColor, pos)
@@ -19,6 +28,15 @@ Player::Player(float speed, float jumpForce, float gravity, platforms &pltfrms, 
 	grav = gravity;
 	grounded = false;
 	plats = &pltfrms;
+
+	wallRide = 0;
+	wallJumpLock = 0;
+
+	dbJump = false;
+
+	dashTimer = Timer(.1f);
+	dashState = false;
+	dashIsRight = false;
 }
 
 void Player::onInit()
@@ -40,6 +58,7 @@ void Player::onUpdate()
 	}
 
 	grounded = false;
+	wallRide = 0;
 	//TODO: set wall ride to zero
 
 	for (int x = 0; x < plats->platformCount; ++x)
@@ -84,7 +103,52 @@ void Player::move()
 
 		//TODO: check for a wall ride and if so set grav pull to (grav *0.2f) *GetFrameTIme() and allow for wall jump then wall jump lock
 
-		vel.y += grav * GetFrameTime();
+		if (wallRide != 0 && vel.y > 0)
+		{
+			vel.y = (grav * 0.1f);
+
+			if (wallJumpLock != wallRide && IsKeyPressed(KEY_SPACE))
+			{
+				vel.y = -jForce;
+				wallJumpLock = wallRide;
+			}
+		}
+		else
+		{
+			if (!dbJump && IsKeyPressed(KEY_SPACE))
+			{
+				vel.y = -jForce;
+				dbJump = true;
+			}
+
+			vel.y += grav * GetFrameTime();
+		}
+	}
+
+	switch (dashState)
+	{
+	case 0:
+		if (IsKeyPressed(KEY_LEFT_SHIFT))
+		{
+			dashState = 1;
+			dashIsRight = vel.x >= 0;
+			vel = Vec2(spd * ((dashIsRight) ? 2.5 : -2.5), 0);
+		}
+		break;
+	case 1:
+		vel = Vec2(spd * ((dashIsRight) ? 2.5 : -2.5), 0);
+		if (dashTimer.Check())
+		{
+			dashState = 2;
+		}
+		break;
+	case 2:
+		if (dashTimer.Check(false) && grounded)
+		{
+			dashTimer.Reset();
+			dashState = 0;
+		}
+		break;
 	}
 
 	position += vel * GetFrameTime();
@@ -110,6 +174,10 @@ void Player::push(BoxObject &colliding)
 		vel.y = 0;
 
 		//TODO: set double jump bool to false
+
+		dbJump = false;
+
+		wallJumpLock = 0;
 	}
 	else if (uAngle > upperExtent)
 	{
@@ -123,6 +191,7 @@ void Player::push(BoxObject &colliding)
 		position.x = colliding.position.x - radius;
 
 		//TODO: set wall ride to 1
+		wallRide = 1;
 	}
 	else if (angle < 0)
 	{
@@ -130,5 +199,6 @@ void Player::push(BoxObject &colliding)
 		position.x = colliding.position.x + colliding.rec.width + radius;
 
 		//TODO: set wall ride to 2
+		wallRide = 2;
 	}
 }
