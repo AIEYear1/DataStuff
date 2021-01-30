@@ -192,6 +192,11 @@ tBinaryTree<T>::tBinaryTree(const tBinaryTree &other)
 template <typename T>
 tBinaryTree<T> &tBinaryTree<T>::operator=(const tBinaryTree &other)
 {
+	if (root != nullptr)
+	{
+		root->destroy();
+	}
+
 	std::vector<node> toCopy;
 	std::vector<node *> toCheckNext;
 

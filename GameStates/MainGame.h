@@ -21,4 +21,3 @@ protected:
     virtual void onDraw() override;
     virtual void onExit() override;
 };
-

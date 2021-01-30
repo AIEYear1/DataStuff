@@ -17,6 +17,9 @@ class Player :
     //TODO: int for wall ride; 0 for neither, 1 for left side, 2 for right side
     //TODO: int for wall jump lock; 0 for neither, 1 for left side, 2 for right side
 
+    // consider a dash function, probably timer based
+    // perhaps an enhanced camera follow to help see around
+
     UITextObject showPos;
     virtual void onInit() override;
     virtual void onUpdate() override;

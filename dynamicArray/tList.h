@@ -45,8 +45,13 @@ public:
 		bool operator ==(iterator rhs);
 		bool operator !=(iterator rhs);
 
-		T &operator++();
-		T operator++(int);
+		T &operator*() const;
+
+		iterator &operator++();
+		iterator operator++(int);
+
+		iterator &operator--();
+		iterator operator--(int);
 	};
 
 	iterator begin();
@@ -78,16 +83,37 @@ bool tList<T>::iterator::operator !=(iterator rhs)
 }
 
 template <typename T>
-T &tList<T>::iterator::operator++()
+T &tList<T>::iterator::operator*() const
+{
+	return cur->next;
+}
+
+template <typename T>
+typename tList<T>::iterator &tList<T>::iterator::operator++()
 {
 	cur = cur->next;
-	return &(cur->data);
+	return *cur;
 }
 template <typename T>
-T tList<T>::iterator::operator++(int)
+typename tList<T>::iterator tList<T>::iterator::operator++(int)
 {
+	iterator tmpIterator = *cur;
 	cur = cur->next;
-	return cur->prev->data;
+	return tmpIterator;
+}
+
+template <typename T>
+typename tList<T>::iterator &tList<T>::iterator::operator--()
+{
+	cur = cur->prev;
+	return *cur;
+}
+template <typename T>
+typename tList<T>::iterator tList<T>::iterator::operator--(int)
+{
+	iterator tmpIterator = *cur;
+	cur = cur->prev;
+	return tmpIterator;
 }
 
 
@@ -142,6 +168,11 @@ tList<T>::tList(const tList &other)
 template <typename T>
 tList<T> &tList<T>::operator=(const tList &rhs)
 {
+	while (head != nullptr)
+	{
+		pop_front();
+	}
+
 	head = new node{ rhs.head->data, nullptr, nullptr };
 
 	node *tmpBaseNode = rhs.head->next;
@@ -196,6 +227,10 @@ void tList<T>::pop_front()
 	{
 		head->prev = nullptr;
 	}
+	else
+	{
+		tail = nullptr;
+	}
 }
 template <typename T>
 void tList<T>::push_back(const T &val)
@@ -210,7 +245,15 @@ void tList<T>::pop_back()
 	node *newTail = tail->prev;
 	delete tail;
 	tail = newTail;
-	tail->next = nullptr;
+
+	if (tail != nullptr)
+	{
+		tail->next = nullptr;
+	}
+	else
+	{
+		head = nullptr;
+	}
 }
 
 template <typename T>
