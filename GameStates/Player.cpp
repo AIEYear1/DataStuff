@@ -59,7 +59,6 @@ void Player::onUpdate()
 
 	grounded = false;
 	wallRide = 0;
-	//TODO: set wall ride to zero
 
 	for (int x = 0; x < plats->platformCount; ++x)
 	{
@@ -86,45 +85,13 @@ void Player::onDraw()
 
 void Player::move()
 {
-	vel.x = GetAxis("Horizontal") * spd;
-	//vel.y = curCenter->y;
+	horizontal();
+	vertical();
 
-	// Jump code
-	if (grounded)
-	{
-		if (IsKeyPressed(KEY_SPACE))
-		{
-			vel.y = -jForce;
-		}
-	}
-	else
-	{
-		//TODO: check for double jump bool and space input if both good set double jump bool to true and set vel.y = -(jForce * 0.75f)
-
-		//TODO: check for a wall ride and if so set grav pull to (grav *0.2f) *GetFrameTIme() and allow for wall jump then wall jump lock
-
-		if (wallRide != 0 && vel.y > 0)
-		{
-			vel.y = (grav * 0.1f);
-
-			if (wallJumpLock != wallRide && IsKeyPressed(KEY_SPACE))
-			{
-				vel.y = -jForce;
-				wallJumpLock = wallRide;
-			}
-		}
-		else
-		{
-			if (!dbJump && IsKeyPressed(KEY_SPACE))
-			{
-				vel.y = -jForce;
-				dbJump = true;
-			}
-
-			vel.y += grav * GetFrameTime();
-		}
-	}
-
+	position += vel * GetFrameTime();
+}
+void Player::horizontal()
+{
 	switch (dashState)
 	{
 	case 0:
@@ -133,15 +100,20 @@ void Player::move()
 			dashState = 1;
 			dashIsRight = vel.x >= 0;
 			vel = Vec2(spd * ((dashIsRight) ? 2.5 : -2.5), 0);
+
+			return;
 		}
 		break;
 	case 1:
-		vel = Vec2(spd * ((dashIsRight) ? 2.5 : -2.5), 0);
+		vel.x = spd * ((dashIsRight) ? 2.5 : -2.5);
+
 		if (dashTimer.Check())
 		{
 			dashState = 2;
+
+			break;
 		}
-		break;
+		return;
 	case 2:
 		if (dashTimer.Check(false) && grounded)
 		{
@@ -150,8 +122,61 @@ void Player::move()
 		}
 		break;
 	}
+	vel.x = GetAxis("Horizontal") * spd;
 
-	position += vel * GetFrameTime();
+	/// start by getting input
+	/// if input is 0 set vel.x to 0
+	/// cur speed = abs(vel.x)
+	/// compare input to current vel.x
+	/// if in the same direction increment towards max speed
+	///		if cur speed is less than max speed    increment = aceleration * GetFrameTime()
+	///			if max speed - cur speed < increment    increment = max speed - vel.x
+	///		vel.x += increment * input;
+	///		if cur speed is greater than max speed    vel.x = max speed
+	/// if in contrasting direction set to 0 and then increment towards max speed
+	///		vel.x = input * aceleration * GetFrameTime()
+
+}
+void Player::vertical()
+{
+	if (dashState == 1)
+	{
+		return;
+	}
+
+	// Grounded
+	if (grounded)
+	{
+		if (IsKeyPressed(KEY_SPACE))
+		{
+			vel.y = -jForce;
+		}
+
+		return;
+	}
+
+	// Wall Ride
+	if (wallRide != 0 && vel.y > 0)
+	{
+		vel.y = (grav * 0.1f);
+
+		if (wallJumpLock != wallRide && IsKeyPressed(KEY_SPACE))
+		{
+			vel.y = -jForce;
+			wallJumpLock = wallRide;
+		}
+
+		return;
+	}
+
+	// Free Fall
+	if (!dbJump && IsKeyPressed(KEY_SPACE))
+	{
+		vel.y = -jForce;
+		dbJump = true;
+	}
+
+	vel.y += grav * GetFrameTime();
 }
 
 void Player::push(BoxObject &colliding)
@@ -173,32 +198,35 @@ void Player::push(BoxObject &colliding)
 		grounded = true;
 		vel.y = 0;
 
-		//TODO: set double jump bool to false
-
 		dbJump = false;
-
 		wallJumpLock = 0;
+
+		return;
 	}
-	else if (uAngle > upperExtent)
+	if (uAngle > upperExtent)
 	{
 		//// down
 		position.y = colliding.position.y + colliding.rec.height + radius;
 		vel.y = 0;
+
+		return;
 	}
-	else if (angle > 0)
+	if (angle > 0)
 	{
 		//// left
 		position.x = colliding.position.x - radius;
 
-		//TODO: set wall ride to 1
 		wallRide = 1;
+
+		return;
 	}
-	else if (angle < 0)
+	if (angle < 0)
 	{
 		//// right
 		position.x = colliding.position.x + colliding.rec.width + radius;
 
-		//TODO: set wall ride to 2
 		wallRide = 2;
+
+		return;
 	}
 }

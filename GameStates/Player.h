@@ -13,10 +13,7 @@ class Player :
     bool grounded;
     platforms *plats;
 
-    //TODO: bool for double jump
     bool dbJump;
-    //TODO: int for wall ride; 0 for neither, 1 for left side, 2 for right side
-    //TODO: int for wall jump lock; 0 for neither, 1 for left side, 2 for right side
     int wallRide;
     int wallJumpLock;
 
@@ -34,6 +31,8 @@ class Player :
     virtual void onDraw() override;
 
     void move();
+    void horizontal();
+    void vertical();
 
     void push(BoxObject &colliding);
 
