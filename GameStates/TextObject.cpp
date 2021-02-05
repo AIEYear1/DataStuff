@@ -2,10 +2,10 @@
 
 TextObject::TextObject()
 {
-	text = "";
+	text = string();
 	size = 0;
 }
-TextObject::TextObject(const char *txt, size_t fontSize, Color objColor, Vec2 pos) : SpriteObject(objColor, pos)
+TextObject::TextObject(string txt, size_t fontSize, Color objColor, Vec2 pos) : SpriteObject(objColor, pos)
 {
 	text = txt;
 	size = fontSize;

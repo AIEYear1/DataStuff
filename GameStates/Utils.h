@@ -16,6 +16,7 @@ float Max(float val, float max);
 float Clamp(float val, float min, float max);
 
 float GetAxis(const char *axis);
+int GetAxisRaw(const char *axis);
 
 string FloatToString(float val);
 //size_t strLength(const char *string);

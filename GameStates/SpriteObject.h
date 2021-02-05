@@ -49,9 +49,9 @@ protected:
     virtual void onDraw() override;
 
 public:
-    const char *text;
+    string text;
     size_t size;
 
     TextObject();
-    TextObject(const char *txt, size_t fontSize, Color objColor, Vec2 pos);
+    TextObject(string txt, size_t fontSize, Color objColor, Vec2 pos);
 };

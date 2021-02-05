@@ -9,12 +9,12 @@ void startupstate::onDraw()
 {
 	DrawText("The Perfect Platformer Name", 200, 200, 80, LIME);
 
-	DrawText("press space to start", 700, CENTER.y + 200, 20, DARKGREEN);
+	DrawText("any key to start", 700, CENTER.y + 200, 20, DARKGREEN);
 }
 
 bool startupstate::nextState(int &nextState)
 {
-	if (IsKeyPressed(KEY_SPACE))
+	if (GetKeyPressed() != 0)
 	{
 		nextState = 1;
 		return true;

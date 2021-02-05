@@ -17,15 +17,19 @@ class Player :
     int wallRide;
     int wallJumpLock;
 
-    // consider a dash function, probably timer based
     Timer dashTimer;
     int dashState;
-    bool dashIsRight;
+
     // perhaps an enhanced camera follow to help see around
 
-    //Momentum horizontal
+    // Momentum horizontal
+    // float acceleration for how fast you speed up towards max speed
+    // float max speed probably just change the name of spd
+    // possible float deceleration while in the air
 
+    // Debug to make it easier to find positions for objects
     UITextObject showPos;
+
     virtual void onInit() override;
     virtual void onUpdate() override;
     virtual void onDraw() override;

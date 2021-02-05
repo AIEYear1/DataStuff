@@ -16,8 +16,7 @@ Player::Player()
 	dbJump = false;
 
 	dashTimer = Timer(.1f);
-	dashState = false;
-	dashIsRight = false;
+	dashState = 0;
 }
 
 Player::Player(float speed, float jumpForce, float gravity, platforms &pltfrms, float objRadius, Color objColor, Vec2 pos) : CircleObject(objRadius, objColor, pos)
@@ -35,8 +34,7 @@ Player::Player(float speed, float jumpForce, float gravity, platforms &pltfrms, 
 	dbJump = false;
 
 	dashTimer = Timer(.1f);
-	dashState = false;
-	dashIsRight = false;
+	dashState = 0;
 }
 
 void Player::onInit()
@@ -95,17 +93,16 @@ void Player::horizontal()
 	switch (dashState)
 	{
 	case 0:
-		if (IsKeyPressed(KEY_LEFT_SHIFT))
+		if (vel.x != 0 && IsKeyPressed(KEY_LEFT_SHIFT))
 		{
 			dashState = 1;
-			dashIsRight = vel.x >= 0;
-			vel = Vec2(spd * ((dashIsRight) ? 2.5 : -2.5), 0);
+			vel = Vec2(spd * ((vel.x > 0) ? 2.5 : -2.5), 0); // fix this to twixe max speed when done
 
 			return;
 		}
 		break;
 	case 1:
-		vel.x = spd * ((dashIsRight) ? 2.5 : -2.5);
+		//vel.x = spd * ((dashIsRight) ? 2.5 : -2.5);
 
 		if (dashTimer.Check())
 		{
@@ -125,7 +122,7 @@ void Player::horizontal()
 	vel.x = GetAxis("Horizontal") * spd;
 
 	/// start by getting input
-	/// if input is 0 set vel.x to 0
+	/// if input is 0 and grounded set vel.x to 0
 	/// cur speed = abs(vel.x)
 	/// compare input to current vel.x
 	/// if in the same direction increment towards max speed
@@ -133,12 +130,15 @@ void Player::horizontal()
 	///			if max speed - cur speed < increment    increment = max speed - vel.x
 	///		vel.x += increment * input;
 	///		if cur speed is greater than max speed    vel.x = max speed
-	/// if in contrasting direction set to 0 and then increment towards max speed
+	/// if in contrasting direction 
+	///		if grounded set input to 0 
+	/// then increment towards max speed
 	///		vel.x = input * aceleration * GetFrameTime()
 
 }
 void Player::vertical()
 {
+	// stop falling while dashing
 	if (dashState == 1)
 	{
 		return;
@@ -156,13 +156,17 @@ void Player::vertical()
 	}
 
 	// Wall Ride
-	if (wallRide != 0 && vel.y > 0)
+	if (wallRide != 0)
 	{
-		vel.y = (grav * 0.1f);
+		if (vel.y > 0)
+			vel.y = (grav * 0.1f);
+		else
+			vel.y += grav * GetFrameTime();
 
 		if (wallJumpLock != wallRide && IsKeyPressed(KEY_SPACE))
 		{
 			vel.y = -jForce;
+			// set vel.x to max speed
 			wallJumpLock = wallRide;
 		}
 
@@ -181,8 +185,6 @@ void Player::vertical()
 
 void Player::push(BoxObject &colliding)
 {
-	Vec2 push = Vec2();
-	float boxSpacerThing = 0;
 	Vec2 boxCenter = Vec2(colliding.rec.x + (colliding.rec.width / 2), colliding.rec.y + (colliding.rec.height / 2));
 
 	float angle = Vec2(0, -1).SignedAngle(position - boxCenter);
@@ -216,6 +218,7 @@ void Player::push(BoxObject &colliding)
 		//// left
 		position.x = colliding.position.x - radius;
 
+		vel.x = 0;
 		wallRide = 1;
 
 		return;
@@ -225,6 +228,7 @@ void Player::push(BoxObject &colliding)
 		//// right
 		position.x = colliding.position.x + colliding.rec.width + radius;
 
+		vel.x = 0;
 		wallRide = 2;
 
 		return;

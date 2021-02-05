@@ -40,9 +40,9 @@ float GetAxis(const char *axis)
     if (axis == "Vertical")
     {
         if (IsKeyDown(KEY_W))
-            target = -1;
+            target += -1;
         if (IsKeyDown(KEY_S))
-            target = 1;
+            target += 1;
 
         toReturnVertical = Lerp(toReturnVertical, target, sensitivity * GetFrameTime());
         return (Abs(toReturnVertical) < dead) ? 0.0f : toReturnVertical;
@@ -51,12 +51,31 @@ float GetAxis(const char *axis)
     if (axis == "Horizontal")
     {
         if (IsKeyDown(KEY_D))
-            target = 1;
+            target += 1;
         if (IsKeyDown(KEY_A))
-            target = -1;
+            target += -1;
 
         toReturnHorizontal = Lerp(toReturnHorizontal, target, sensitivity * GetFrameTime());
         return (Abs(toReturnHorizontal) < dead) ? 0.0f : toReturnHorizontal;
+    }
+
+    return 0;
+}
+int GetAxisRaw(const char *axis)
+{
+    if (axis == "Vertical")
+    {
+        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
+            return -1;
+        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
+            return 1;
+    }
+    if (axis == "Horizontal")
+    {
+        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
+            return -1;
+        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
+            return 1;
     }
 
     return 0;
