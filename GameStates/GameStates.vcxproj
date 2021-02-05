@@ -145,6 +145,7 @@
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="movingObject.cpp" />
     <ClCompile Include="platforms.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneObject.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="cameracenter.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="movingObject.h" />
     <ClInclude Include="platforms.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneObject.h" />

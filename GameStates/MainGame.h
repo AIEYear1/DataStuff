@@ -3,6 +3,7 @@
 #include "SpriteObject.h"
 #include "Player.h"
 #include "platforms.h"
+#include "movingObject.h"
 #define DARKRED CLITERAL(Color){ 160, 20, 60, 255 }
 
 class MainGame :

@@ -60,9 +60,9 @@ void Player::onUpdate()
 
 	for (int x = 0; x < plats->platformCount; ++x)
 	{
-		if (CheckCollisionCircleRec(position, radius, (*plats)[x].rec))
+		if (CheckCollisionCircleRec(position, radius, (*plats)[x]->rec))
 		{
-			push((*plats)[x]);
+			push(*(*plats)[x]);
 		}
 	}
 

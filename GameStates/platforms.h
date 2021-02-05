@@ -4,18 +4,18 @@
 
 class platforms
 {
-	BoxObject *plats;
 
 
 public:
+	BoxObject **plats;
 	int platformCount;
+
+	void update();
 	
-	BoxObject &operator[](int);
+	BoxObject *operator[](int);
 
 	platforms();
-	platforms(BoxObject *pltfrms, int size);
+	platforms(BoxObject *pltfrms[], int size);
 
-	platforms(const platforms &other);
-	platforms &operator=(const platforms &other);
-	~platforms();
+	void destroy();
 };
