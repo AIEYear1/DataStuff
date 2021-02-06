@@ -6,6 +6,7 @@ class movingObject :
     float maxPoint;
     float minPoint;
     float speed;
+    float displacement;
 
     bool isHorizontal;
     bool travelFlip;
@@ -15,5 +16,7 @@ class movingObject :
 public:
     movingObject();
     movingObject(float spd, float min, float max, bool moveHorizontally, Rectangle objRec, Color objColor);
+
+    virtual void onCollision(SpriteObject &colliding) override;
 };
 

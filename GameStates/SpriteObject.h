@@ -40,6 +40,8 @@ public:
 
     BoxObject();
     BoxObject(Rectangle objRec, Color objColor);
+
+    virtual void onCollision(SpriteObject &colliding);
 };
 
 class TextObject :

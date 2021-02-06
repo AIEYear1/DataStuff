@@ -63,6 +63,7 @@ void Player::onUpdate()
 		if (CheckCollisionCircleRec(position, radius, (*plats)[x]->rec))
 		{
 			push(*(*plats)[x]);
+			(*plats)[x]->onCollision(*this);
 		}
 	}
 

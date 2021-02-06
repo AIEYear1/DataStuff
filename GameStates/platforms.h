@@ -11,11 +11,12 @@ public:
 	int platformCount;
 
 	void update();
+	void draw();
 	
 	BoxObject *operator[](int);
 
 	platforms();
-	platforms(BoxObject *pltfrms[], int size);
+	platforms(BoxObject *pltfrms[]);
 
 	void destroy();
 };

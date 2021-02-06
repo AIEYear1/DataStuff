@@ -16,3 +16,5 @@ void BoxObject::onDraw()
 	rec.y = position.y;
 	DrawRectangleRec(rec, color);
 }
+
+void BoxObject::onCollision(SpriteObject &colliding) {}

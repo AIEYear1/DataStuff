@@ -2,36 +2,43 @@
 
 movingObject::movingObject()
 {
+    speed = 0;
     minPoint = 0;
     maxPoint = 0;
-    speed = 0;
 
     isHorizontal = false;
     travelFlip = false;
+
+    displacement = 0;
 }
 movingObject::movingObject(float spd, float min, float max, bool moveHorizontally, Rectangle objRec, Color objColor) : BoxObject(objRec, objColor)
 {
+    speed = spd;
     minPoint = min;
     maxPoint = max;
-    speed = spd;
 
     isHorizontal = moveHorizontally;
     travelFlip = false;
+
+    displacement = 0;
 }
 
 void movingObject::onUpdate() 
 {
     if (isHorizontal)
     {
-        position.x += (speed * GetFrameTime()) * (travelFlip) ? -1 : 1;
+        displacement = speed * GetFrameTime() * ((travelFlip) ? -1.0f : 1.0f);
+        position.x += displacement;
 
         if (!travelFlip && position.x + rec.width > maxPoint)
         {
+            displacement -= position.x - (maxPoint - rec.width);
             position.x = maxPoint - rec.width;
             travelFlip = true;
         }
         else if (position.x < minPoint)
         {
+            displacement -= position.x - minPoint;
             position.x = minPoint;
             travelFlip = false;
         }
@@ -43,7 +50,8 @@ void movingObject::onUpdate()
         return;
     }
 
-    position.y += (speed * GetFrameTime()) * (travelFlip) ? -1 : 1;
+    displacement = speed * GetFrameTime() * ((travelFlip) ? -1.0f : 1.0f);
+    position.y += displacement;
 
     if (!travelFlip && position.y > maxPoint)
     {
@@ -59,4 +67,14 @@ void movingObject::onUpdate()
     float offset = CENTER.y - ((Vec2)cameracenter::instance()).y;
     minPoint += offset;
     maxPoint += offset;
+}
+void movingObject::onCollision(SpriteObject &colliding)
+{
+    if (isHorizontal)
+    {
+        colliding.position.x += displacement;
+        return;
+    }
+
+    colliding.position.y += displacement;
 }

@@ -8,20 +8,10 @@ Color MainGame::background() const
 void MainGame::onInit()
 {
 	generatePlatforms();
+	generateOtherObjs();
 
 	plyr = Player(800, 1000, 2500, plats, 30, ORANGE, CENTER);
 	plyr.init();
-
-	objSize = 5;
-	otherObjs = new SpriteObject*[]
-	{
-		new TextObject("  AD to move\nspace to jump", 16, DARKRED, Vec2(1150, 425)),
-		new TextObject("use the bottom ledge\n  to make the jump", 16, DARKRED, Vec2(3375, 125)),
-		new TextObject(" jump while wall sliding\nto perform a wall jump", 16, DARKRED, Vec2(3675, -200)),
-		new TextObject("shift to dash", 16, DARKRED, Vec2(4925, -350)),
-		new TextObject("   jump while in the air\nto perform a double jump", 16, DARKRED, Vec2(6525, -575)),
-	};
-	int test = *(&otherObjs + 1) - otherObjs;
 }
 void MainGame::onTick()
 {
@@ -38,10 +28,7 @@ void MainGame::onTick()
 }
 void MainGame::onDraw()
 {
-	for (int x = 0; x < plats.platformCount; ++x)
-	{
-		plats[x]->draw();
-	}
+	plats.draw();
 
 	for (int x = 0; x < objSize; ++x)
 	{
@@ -61,9 +48,21 @@ void MainGame::onExit()
 	delete[] otherObjs;
 }
 
+void MainGame::generateOtherObjs()
+{
+	objSize = 5;
+	otherObjs = new SpriteObject *[]
+	{
+		new TextObject("  AD to move\nspace to jump", 16, DARKRED, Vec2(1150, 425)),
+		new TextObject("use the bottom ledge\n  to make the jump", 16, DARKRED, Vec2(3375, 125)),
+		new TextObject(" jump while wall sliding\nto perform a wall jump", 16, DARKRED, Vec2(3675, -200)),
+		new TextObject("shift to dash", 16, DARKRED, Vec2(4925, -350)),
+		new TextObject("   jump while in the air\nto perform a double jump", 16, DARKRED, Vec2(6525, -575)),
+	};
+}
 void MainGame::generatePlatforms()
 {
-	BoxObject **tmp = new BoxObject*[]
+	plats = new BoxObject*[]
 	{
 		new BoxObject(Rectangle{ -400, 50, 400, 800 },   LIME),							// back wall
 		new BoxObject(Rectangle{ 0, 550, 1100, 300 },  LIME),							// start platform
@@ -88,7 +87,6 @@ void MainGame::generatePlatforms()
 		new BoxObject(Rectangle{ 4500, -4500, 1500, 3000 }, LIME),						// wall slide left
 		new BoxObject(Rectangle{ 4100, -1550, 400, 50 }, LIME),							// wall slide left
 		new movingObject(400, 0, 1000, true, Rectangle{ 0, -150, 200, 100 }, LIME),		// moving object test
-		nullptr,
+		nullptr
 	};
-	plats = platforms(tmp, 23);
 }

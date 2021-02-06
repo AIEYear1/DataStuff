@@ -15,6 +15,8 @@ class MainGame :
     size_t objSize;
 
     void generatePlatforms();
+    void generateOtherObjs();
+
 protected:
     virtual Color background() const override;
 

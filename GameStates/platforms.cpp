@@ -5,7 +5,7 @@ platforms::platforms()
 	plats = nullptr;
 	platformCount = 0;
 }
-platforms::platforms(BoxObject *pltfrms[], int size)
+platforms::platforms(BoxObject *pltfrms[])
 {
 	platformCount = 0;
 	BoxObject *tmpBox = pltfrms[0];
@@ -41,5 +41,12 @@ void platforms::update()
 	for (int x = 0; x < platformCount; ++x)
 	{
 		plats[x]->update();
+	}
+}
+void platforms::draw()
+{
+	for (int x = 0; x < platformCount; ++x)
+	{
+		plats[x]->draw();
 	}
 }
