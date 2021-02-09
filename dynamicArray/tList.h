@@ -25,9 +25,12 @@ public:
 
 	T &front();
 	const T &front() const;
+	T &back();
+	const T &back() const;
 
 	void remove(const T &val);
 	void clear();
+	void resize(size_t newSize);
 
 	bool empty() const;
 
@@ -85,19 +88,19 @@ bool tList<T>::iterator::operator !=(iterator rhs)
 template <typename T>
 T &tList<T>::iterator::operator*() const
 {
-	return cur->next;
+	return cur->data;
 }
 
 template <typename T>
 typename tList<T>::iterator &tList<T>::iterator::operator++()
 {
 	cur = cur->next;
-	return *cur;
+	return *this;
 }
 template <typename T>
 typename tList<T>::iterator tList<T>::iterator::operator++(int)
 {
-	iterator tmpIterator = *cur;
+	iterator tmpIterator = *this;
 	cur = cur->next;
 	return tmpIterator;
 }
@@ -106,12 +109,12 @@ template <typename T>
 typename tList<T>::iterator &tList<T>::iterator::operator--()
 {
 	cur = cur->prev;
-	return *cur;
+	return *this;
 }
 template <typename T>
 typename tList<T>::iterator tList<T>::iterator::operator--(int)
 {
-	iterator tmpIterator = *cur;
+	iterator tmpIterator = *this;
 	cur = cur->prev;
 	return tmpIterator;
 }
@@ -237,7 +240,22 @@ void tList<T>::push_back(const T &val)
 {
 	node *oldTail = tail;
 	tail = new node{ val, nullptr, tail };
-	oldTail->next = tail;
+
+	if (oldTail != nullptr)
+	{
+		oldTail->next = tail;
+	}
+
+	if (head == nullptr)
+	{
+		node *tmpNode = tail;
+		while (tmpNode->prev != nullptr)
+		{
+			tmpNode = tmpNode->prev;
+		}
+
+		head = tmpNode;
+	}
 }
 template <typename T>
 void tList<T>::pop_back()
@@ -265,6 +283,16 @@ template <typename T>
 const T &tList<T>::front() const
 {
 	return head->data;
+}
+template <typename T>
+T &tList<T>::back()
+{
+	return tail->data;
+}
+template <typename T>
+const T &tList<T>::back() const
+{
+	return tail->data;
 }
 
 template <typename T>
@@ -296,6 +324,37 @@ void tList<T>::clear()
 
 	head = nullptr;
 	tail = nullptr;
+}
+template <typename T>
+void tList<T>::resize(size_t newSize)
+{
+	node *tmpNode = head;
+	int size = 0;
+
+	while (tmpNode != nullptr)
+	{
+		++size;
+		tmpNode = tmpNode->next;
+	}
+
+	if (size < newSize)
+	{
+		for (int x = size; x < newSize; ++x)
+		{
+			tail->next = new node();
+			tail = tail->next;
+		}
+	}
+	else if (size > newSize)
+	{
+		for (int x = size; x > newSize; --x)
+		{
+			tmpNode = tail;
+			tail = tail->prev;
+			delete tmpNode;
+		}
+		tail->next = nullptr;
+	}
 }
 
 template <typename T>

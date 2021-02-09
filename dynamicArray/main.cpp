@@ -4,7 +4,6 @@
 #include "tBinaryTree.h"
 #include "Hash.h"
 
-
 int main()
 {
 	tBinaryTree<int> numbers;
@@ -14,13 +13,9 @@ int main()
 	numbers.insert(7);
 	numbers.insert(8);
 
-	tBinaryTree<int>::node deets;
+	tBinaryTree<int>::node *foundNode;
 
-	bool val = numbers.search(6, deets);
-
-	tBinaryTree<int> numbers2;
-	numbers2 = numbers;
-	tBinaryTree<int> numbers3 = numbers2;
+	numbers.search(7, foundNode);
 
 	return 0;
 }

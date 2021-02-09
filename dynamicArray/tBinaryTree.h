@@ -17,7 +17,7 @@ public:
 		bool hasRight() const;
 
 		void insert(const T &value);
-		bool find(const T &value, node &found);
+		bool find(const T &value, node *&found);
 
 		void destroy();
 
@@ -32,7 +32,7 @@ public:
 	~tBinaryTree();
 
 	void insert(const T &value);
-	bool search(const T &value, node &found);
+	bool search(const T &value, node *&found);
 
 private:
 	std::vector<node *> vertices;
@@ -103,11 +103,11 @@ void tBinaryTree<T>::node::insert(const T &value)
 	}
 }
 template <typename T>
-bool tBinaryTree<T>::node::find(const T &value, node &found)
+bool tBinaryTree<T>::node::find(const T &value, node *&found)
 {
 	if (value == data)
 	{
-		found = *this;
+		found = this;
 		return true;
 	}
 
@@ -115,6 +115,7 @@ bool tBinaryTree<T>::node::find(const T &value, node &found)
 	{
 		if (!hasLeft())
 		{
+			found = nullptr;
 			return false;
 		}
 
@@ -125,12 +126,14 @@ bool tBinaryTree<T>::node::find(const T &value, node &found)
 	{
 		if (!hasRight())
 		{
+			found = nullptr;
 			return false;
 		}
 
 		return right->find(value, found);
 	}
 
+	found = nullptr;
 	return false;
 }
 
@@ -248,7 +251,7 @@ void tBinaryTree<T>::insert(const T &value)
 }
 
 template <typename T>
-bool tBinaryTree<T>::search(const T &value, node &found)
+bool tBinaryTree<T>::search(const T &value, node *&found)
 {
 	if (root == nullptr)
 	{
