@@ -16,6 +16,7 @@ int main()
 	tBinaryTree<int>::node *foundNode;
 
 	numbers.search(7, foundNode);
+	numbers.remove(foundNode);
 
 	return 0;
 }

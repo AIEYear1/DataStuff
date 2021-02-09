@@ -32,6 +32,7 @@ public:
 	~tBinaryTree();
 
 	void insert(const T &value);
+	void remove(node *target);
 	bool search(const T &value, node *&found);
 
 private:
@@ -248,6 +249,130 @@ void tBinaryTree<T>::insert(const T &value)
 	}
 
 	root->insert(value);
+}
+template <typename T>
+void tBinaryTree<T>::remove(node *target)
+{
+	if (root == nullptr)
+		return;
+
+	node *prevNode = nullptr;
+	node *tmpNode = nullptr;
+	if (target == root)
+	{
+		if (root->hasRight())
+		{
+			prevNode = root;
+			tmpNode = root->right;
+			while (tmpNode->hasLeft())
+			{
+				prevNode = tmpNode;
+				tmpNode = tmpNode->left;
+			}
+
+			if (tmpNode->hasRight())
+			{
+				prevNode->left = tmpNode->right;
+			}
+
+			tmpNode->left = root->left;
+			tmpNode->right = root->right;
+		}
+		else if (root->hasLeft())
+		{
+			prevNode = root;
+			tmpNode = root->left;
+			while (tmpNode->hasRight())
+			{
+				prevNode = tmpNode;
+				tmpNode = tmpNode->right;
+			}
+
+			if (tmpNode->hasLeft())
+			{
+				prevNode->right = tmpNode->left;
+			}
+
+			tmpNode->left = root->left;
+			tmpNode->right = root->right;
+		}
+
+		delete root;
+
+		root = tmpNode;
+		return;
+	}
+
+	if (target->hasRight())
+	{
+		prevNode = target;
+		tmpNode = target->right;
+		while (tmpNode->hasLeft())
+		{
+			prevNode = tmpNode;
+			tmpNode = tmpNode->left;
+		}
+
+		if (tmpNode->hasRight())
+		{
+			prevNode->left = tmpNode->right;
+		}
+
+		tmpNode->left = target->left;
+		tmpNode->right = target->right;
+	}
+	else if (target->hasLeft())
+	{
+		prevNode = target;
+		tmpNode = target->left;
+		while (tmpNode->hasRight())
+		{
+			prevNode = tmpNode;
+			tmpNode = tmpNode->right;
+		}
+
+		if (tmpNode->hasLeft())
+		{
+			prevNode->right = tmpNode->left;
+		}
+
+		tmpNode->left = target->left;
+		tmpNode->right = target->right;
+	}
+
+	T tmpData = target->data;
+
+	node *cycleNode = root;
+	bool cycling = true;
+
+	while (cycling)
+	{
+		cycling = false;
+
+		if (tmpData < cycleNode->data && cycleNode->left != target)
+		{
+			cycling = true;
+			cycleNode = cycleNode->left;
+			continue;
+		}
+		if (tmpData > cycleNode->data && cycleNode->right != target)
+		{
+			cycling = true;
+			cycleNode = cycleNode->right;
+			continue;
+		}
+	}
+
+	if (tmpNode->data < cycleNode->data)
+	{
+		cycleNode->left = tmpNode;
+	}
+	else if (tmpNode->data > cycleNode->data)
+	{
+		cycleNode->right = tmpNode;
+	}
+
+	delete target;
 }
 
 template <typename T>
