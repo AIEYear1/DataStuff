@@ -149,11 +149,11 @@ tList<T>::~tList()
 template <typename T>
 tList<T>::tList(const tList &other)
 {
-	if (rhs.empty())
+	if (other.empty())
 	{
 		head = nullptr;
 		tail = nullptr;
-		return *this;
+		return;
 	}
 
 	head = new node{ other.head->data, nullptr, nullptr };
