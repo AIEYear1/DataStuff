@@ -272,11 +272,23 @@ void tBinaryTree<T>::remove(node *target)
 
 			if (tmpNode->hasRight())
 			{
-				prevNode->left = tmpNode->right;
+				if (tmpNode->data < prevNode->data)
+					prevNode->left = tmpNode->right;
+				if (tmpNode->data > prevNode->data)
+					prevNode->right = tmpNode->right;
+			}
+			else
+			{
+				if (tmpNode->data < prevNode->data)
+					prevNode->left = nullptr;
+				if (tmpNode->data > prevNode->data)
+					prevNode->right = nullptr;
 			}
 
-			tmpNode->left = root->left;
-			tmpNode->right = root->right;
+			if (root->left != tmpNode)
+				tmpNode->left = root->left;
+			if (root->right != tmpNode)
+				tmpNode->right = root->right;
 		}
 		else if (root->hasLeft())
 		{
@@ -290,11 +302,23 @@ void tBinaryTree<T>::remove(node *target)
 
 			if (tmpNode->hasLeft())
 			{
-				prevNode->right = tmpNode->left;
+				if (tmpNode->data < prevNode->data)
+					prevNode->left = tmpNode->left;
+				if (tmpNode->data > prevNode->data)
+					prevNode->right = tmpNode->left;
+			}
+			else
+			{
+				if (tmpNode->data < prevNode->data)
+					prevNode->left = nullptr;
+				if (tmpNode->data > prevNode->data)
+					prevNode->right = nullptr;
 			}
 
-			tmpNode->left = root->left;
-			tmpNode->right = root->right;
+			if (target->left != tmpNode)
+				tmpNode->left = root->left;
+			if (target->right != tmpNode)
+				tmpNode->right = root->right;
 		}
 
 		delete root;
@@ -315,11 +339,23 @@ void tBinaryTree<T>::remove(node *target)
 
 		if (tmpNode->hasRight())
 		{
-			prevNode->left = tmpNode->right;
+			if (tmpNode->data < prevNode->data)
+				prevNode->left = tmpNode->right;
+			if (tmpNode->data > prevNode->data)
+				prevNode->right = tmpNode->right;
+		}
+		else
+		{
+			if (tmpNode->data < prevNode->data)
+				prevNode->left = nullptr;
+			if (tmpNode->data > prevNode->data)
+				prevNode->right = nullptr;
 		}
 
-		tmpNode->left = target->left;
-		tmpNode->right = target->right;
+		if(target->left != tmpNode)
+			tmpNode->left = target->left;
+		if(target->right != tmpNode)
+			tmpNode->right = target->right;
 	}
 	else if (target->hasLeft())
 	{
@@ -333,11 +369,23 @@ void tBinaryTree<T>::remove(node *target)
 
 		if (tmpNode->hasLeft())
 		{
-			prevNode->right = tmpNode->left;
+			if (tmpNode->data < prevNode->data)
+				prevNode->left = tmpNode->left;
+			if (tmpNode->data > prevNode->data)
+				prevNode->right = tmpNode->left;
+		}
+		else
+		{
+			if (tmpNode->data < prevNode->data)
+				prevNode->left = nullptr;
+			if (tmpNode->data > prevNode->data)
+				prevNode->right = nullptr;
 		}
 
-		tmpNode->left = target->left;
-		tmpNode->right = target->right;
+		if (target->left != tmpNode)
+			tmpNode->left = target->left;
+		if (target->right != tmpNode)
+			tmpNode->right = target->right;
 	}
 
 	T tmpData = target->data;
@@ -363,11 +411,11 @@ void tBinaryTree<T>::remove(node *target)
 		}
 	}
 
-	if (tmpNode->data < cycleNode->data)
+	if (tmpData < cycleNode->data)
 	{
 		cycleNode->left = tmpNode;
 	}
-	else if (tmpNode->data > cycleNode->data)
+	else if (tmpData > cycleNode->data)
 	{
 		cycleNode->right = tmpNode;
 	}

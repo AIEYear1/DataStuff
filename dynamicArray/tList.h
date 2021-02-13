@@ -149,6 +149,13 @@ tList<T>::~tList()
 template <typename T>
 tList<T>::tList(const tList &other)
 {
+	if (rhs.empty())
+	{
+		head = nullptr;
+		tail = nullptr;
+		return *this;
+	}
+
 	head = new node{ other.head->data, nullptr, nullptr };
 
 	node *tmpBaseNode = other.head->next;
@@ -166,6 +173,7 @@ tList<T>::tList(const tList &other)
 		tmpBaseNode = tmpBaseNode->next;
 	}
 
+	tmpCopyNode->prev = tmpPrevNode;
 	tail = tmpCopyNode;
 }
 template <typename T>
@@ -175,6 +183,9 @@ tList<T> &tList<T>::operator=(const tList &rhs)
 	{
 		pop_front();
 	}
+
+	if (rhs.empty())
+		return *this;
 
 	head = new node{ rhs.head->data, nullptr, nullptr };
 
@@ -193,6 +204,7 @@ tList<T> &tList<T>::operator=(const tList &rhs)
 		tmpBaseNode = tmpBaseNode->next;
 	}
 
+	tmpCopyNode->prev = tmpPrevNode;
 	tail = tmpCopyNode;
 
 	return *this;
@@ -298,17 +310,49 @@ const T &tList<T>::back() const
 template <typename T>
 void tList<T>::remove(const T &val)
 {
+	if (empty())
+		return;
+
+	if (head->data == val)
+	{
+		pop_front();
+	}
+
+	if (empty())
+		return;
+
 	node **tmpNode = &head;
 
-	while ((*tmpNode)->next->data != val)
+	//while ((*tmpNode)->next->data != val)
+	//{
+	//	tmpNode = &((*tmpNode)->next);
+	//}
+
+	//node *tmpNode2 = (*tmpNode)->next->next;
+	//delete (*tmpNode)->next;
+	//(*tmpNode)->next = tmpNode2;
+	//tmpNode2->prev = (*tmpNode);
+
+	while ((*tmpNode) != tail && (*tmpNode)->next != tail)
 	{
+		if ((*tmpNode)->next->data == val)
+		{
+			node *tmpNode2 = (*tmpNode)->next->next;
+			delete (*tmpNode)->next;
+			(*tmpNode)->next = tmpNode2;
+			tmpNode2->prev = (*tmpNode);
+		}
+
 		tmpNode = &((*tmpNode)->next);
 	}
 
-	node *tmpNode2 = (*tmpNode)->next->next;
-	delete (*tmpNode)->next;
-	(*tmpNode)->next = tmpNode2;
-	tmpNode2->prev = (*tmpNode);
+	if (empty())
+		return;
+
+	if (tail->data == val)
+	{
+		pop_back();
+	}
 }
 template <typename T>
 void tList<T>::clear()
@@ -341,19 +385,15 @@ void tList<T>::resize(size_t newSize)
 	{
 		for (int x = size; x < newSize; ++x)
 		{
-			tail->next = new node();
-			tail = tail->next;
+			push_back(T());
 		}
 	}
 	else if (size > newSize)
 	{
 		for (int x = size; x > newSize; --x)
 		{
-			tmpNode = tail;
-			tail = tail->prev;
-			delete tmpNode;
+			pop_back();
 		}
-		tail->next = nullptr;
 	}
 }
 

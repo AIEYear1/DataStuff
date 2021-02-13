@@ -6,17 +6,20 @@
 
 int main()
 {
-	tBinaryTree<int> numbers;
+	tList<int> numbers;
 
-	numbers.insert(5);
-	numbers.insert(6);
-	numbers.insert(7);
-	numbers.insert(8);
+	tList<int> copy;
 
-	tBinaryTree<int>::node *foundNode;
+	//invoke copy assign
+	copy = numbers;
 
-	numbers.search(7, foundNode);
-	numbers.remove(foundNode);
+	numbers.remove(1);
+
+	// this should succeed and return 2, but fails
+	// the state of the list is now invalid
+	//
+	// head and tail are now null
+	copy.back();
 
 	return 0;
 }
