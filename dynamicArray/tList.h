@@ -341,6 +341,7 @@ void tList<T>::remove(const T &val)
 			delete (*tmpNode)->next;
 			(*tmpNode)->next = tmpNode2;
 			tmpNode2->prev = (*tmpNode);
+			tmpNode = &head;
 		}
 
 		tmpNode = &((*tmpNode)->next);

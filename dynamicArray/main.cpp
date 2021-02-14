@@ -7,19 +7,19 @@
 int main()
 {
 	tList<int> numbers;
+	numbers.push_front(1);
+	numbers.push_back(1);
+	numbers.push_back(2);
+	numbers.push_back(2);
+	numbers.push_back(3);
+	numbers.push_back(3);
 
-	tList<int> copy;
+	numbers.remove(2);
 
-	//invoke copy assign
-	copy = numbers;
+	numbers.pop_back(); // drops 3
+	numbers.pop_back(); // drops 3
 
-	numbers.remove(1);
-
-	// this should succeed and return 2, but fails
-	// the state of the list is now invalid
-	//
-	// head and tail are now null
-	copy.back();
+	int last = numbers.back(); // this should be 1, but it instead returns 2
 
 	return 0;
 }
